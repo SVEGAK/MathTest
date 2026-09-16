@@ -16,7 +16,7 @@ class MathTest {
 	int _correct_count;
 
 	public:
-	MathTest(int count = 0);
+	MathTest(int count = 1);
 	MathTest(int count, int min, int max);
 	MathTest(int count, int min, int max, Operations op);
 	~MathTest();
