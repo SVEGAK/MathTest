@@ -8,6 +8,7 @@ struct Task {
 	Operations op;
 	Task();
 	Task(int min, int max, Operations op);
+	static Task exact(int n1, int n2, Operations operation);//аналог конструктора Task с контролируемыми значениями для тестов
 };
 class MathTest {
 	Task* _tasks;
@@ -22,23 +23,21 @@ class MathTest {
 	~MathTest();
 	void run();
 	void show_statistics();
-
+	void insert_answer(size_t num);
+	void output_cur_task(size_t number);
+	void insert_answer_message();
+	void set_current_task(size_t num, Task cur_task);
 };
-int get_answer(int min, int max, Operations op) {
-	if (min > max) {
-		int buff = max;
-		max = min;
-		min = buff;
-	}
+int get_answer(int num1, int num2, Operations op) {
 	if (op == op_random) { op = Operations(rand() % 4); }
 	switch (op) {
 		case op_add:
-			return min + max;
+			return num1 + num2;
 		case op_subtract:
-			return max - min;
+			return num1 - num2;
 		case op_multiplicate:
-			return min * max;
+			return num1 * num2;
 		case op_divide:
-			return max / min;
+			return num1 / num2;
 	}
 }
