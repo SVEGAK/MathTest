@@ -25,7 +25,7 @@ class MathTest {
 	void show_statistics();
 	void insert_answer(size_t num);
 	void output_cur_task(size_t number);
-	void insert_answer_message();
+	void insert_answer_message(int n);
 	void set_current_task(size_t num, Task cur_task);
 };
 int get_answer(int num1, int num2, Operations op) {

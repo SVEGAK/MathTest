@@ -58,7 +58,7 @@ void MathTest::insert_answer(size_t num)
 
 void MathTest::output_cur_task(size_t number)
 {
-	std::cout << _tasks[number].num_1;
+	std::cout << "  " <<   _tasks[number].num_1;
 	switch (_tasks[number].op) {
 	case(op_add):
 		std::cout << " + ";
@@ -77,9 +77,9 @@ void MathTest::output_cur_task(size_t number)
 
 }
 
-void MathTest::insert_answer_message()
+void MathTest::insert_answer_message(int i)
 {
-	std::cout << "\nInsert answer : ";
+	std::cout << "\nQuestion n" << i << "\nInsert answer : ";
 }
 
 void MathTest::set_current_task(size_t num, Task cur_task)
@@ -93,7 +93,7 @@ void MathTest::run()
 	for (size_t i = 0;i < _count;i++) {
 		//system("cls");
 		(*this).output_cur_task(i);
-		insert_answer_message();
+		insert_answer_message(i);
 		insert_answer(i);
 		if (_user_answers[i] == _tasks[i].answer){
 			_correct_count++;
@@ -108,8 +108,8 @@ void MathTest::show_statistics()
 	for (size_t i = 1; i < (_count+1);i++) {
 		std::cout << "         " << i << " |";
 	}
-	std::cout << "\n+" << std::string((14 + 9 * _count), '-') << "+";
-	std::cout << "\n|  Question |";
+	std::cout << "\n+" << std::string((14 + (12 * _count)), '-') << "+";
+	std::cout << "\n|  Question    |";
 	for (size_t i = 0;i < _count; i++) {
 		(*this).output_cur_task(i);
 	}
@@ -125,14 +125,14 @@ void MathTest::show_statistics()
 	for (size_t i = 0;i < _count; i++) {
 		std::cout << "       ";
 		if (_user_answers[i] == _tasks[i].answer) {
-			std::cout << "+";
+			std::cout << "+ ";
 		
 		}
 		else { std::cout << "-"; }
 		std::cout << " |";
 	}
 	std::cout << "\n\nTotal Result : " << _correct_count << " / " << _count << "(mark : ";
-	float mark = _correct_count / _count * 100;
+	float mark = (static_cast<float>(_correct_count) / _count) * 100;
 	if     (mark > 90){ std::cout << "A"; }
 	else if(mark >= 75) { std::cout << "B"; }
 	else if(mark > 50 ) { std::cout << "C"; }

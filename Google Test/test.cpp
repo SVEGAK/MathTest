@@ -53,3 +53,79 @@ TEST(MathTest, DestructorExplicitDelete) {
 }
 
 
+TEST(MathTest, ExactCase) {
+    // эмулируем ввод пользователя
+    std::string user_input = "25 -5 4 150 15";
+    std::istringstream fake_cin(user_input);
+    std::ostringstream fake_cout;
+
+    // перенаправляем стандартные потоки на фейки
+    auto old_cin = std::cin.rdbuf(fake_cin.rdbuf());
+    auto old_cout = std::cout.rdbuf(fake_cout.rdbuf());
+
+    {
+        
+        MathTest test(5, 1, 10);
+
+        
+        test.set_current_task(0, Task::exact(10, 15, op_add));
+        test.set_current_task(1, Task::exact(10, 15, op_subtract));
+        test.set_current_task(2, Task::exact(11, 5, op_subtract));
+        test.set_current_task(3, Task::exact(10, 15, op_multiplicate));
+        test.set_current_task(4, Task::exact(50, 5, op_divide));
+        
+        test.run();
+    }
+    // возвращаем потоки на место чтобы не сломать будущие тесты
+    std::cin.rdbuf(old_cin);
+    std::cout.rdbuf(old_cout);
+
+    // получаем весь вывод программы в одну строку
+    std::string output = fake_cout.str();
+
+    // проверяем вывод 
+    EXPECT_NE(output.find("10 + 15"), std::string::npos);
+    EXPECT_NE(output.find("10 - 15"), std::string::npos);
+    EXPECT_NE(output.find("11 - 5"), std::string::npos);
+    EXPECT_NE(output.find("10 * 15"), std::string::npos);
+    EXPECT_NE(output.find("50 / 5"), std::string::npos);
+
+    
+    EXPECT_NE(output.find("3 / 5"), std::string::npos);
+
+    // проверяем оценку (3/5 = 60%, это больше 50, значит оценка C)
+    EXPECT_NE(output.find("mark : C"), std::string::npos);
+
+   
+}
+TEST(MathTest, ExactCaseVisualTest) {
+    // эмулируем ввод пользователя
+    std::string user_input = "25 -5 4 150 15";
+    std::istringstream fake_cin(user_input);
+    std::ostringstream fake_cout;
+
+    // перенаправляем стандартные потоки на фейки
+    auto old_cin = std::cin.rdbuf(fake_cin.rdbuf());
+    auto old_cout = std::cout.rdbuf(fake_cout.rdbuf());
+
+    {
+
+        MathTest test(5, 1, 10);
+
+
+        test.set_current_task(0, Task::exact(10, 15, op_add));
+        test.set_current_task(1, Task::exact(10, 15, op_subtract));
+        test.set_current_task(2, Task::exact(11, 5, op_subtract));
+        test.set_current_task(3, Task::exact(10, 15, op_multiplicate));
+        test.set_current_task(4, Task::exact(50, 5, op_divide));
+
+        test.run();
+    }
+    std::string output = fake_cout.str();
+
+    std::cerr << system("chcp 65001") << "\n\n========== ВИЗУАЛЬНАЯ ПРОВЕРКА ТАБЛИЦЫ ==========\n" << output << "\n=================================================\n\n";
+
+    // возвращаем потоки на место чтобы не сломать будущие тесты
+    std::cin.rdbuf(old_cin);
+    std::cout.rdbuf(old_cout);
+}
