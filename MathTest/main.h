@@ -9,7 +9,21 @@ struct Task {
 	Task();
 	Task(int min, int max, Operations op);
 };
-class MathTest;
+class MathTest {
+	Task* _tasks;
+	int _count;
+	int* _user_answers;
+	int _correct_count;
+
+	public:
+	MathTest(int count = 0);
+	MathTest(int count, int min, int max);
+	MathTest(int count, int min, int max, Operations op);
+	~MathTest();
+	void run();
+	void show_statistics();
+
+};
 int get_answer(int min, int max, Operations op) {
 	if (min > max) {
 		int buff = max;
