@@ -10,10 +10,11 @@ Task::Task() {
 }
 Task::Task(int min, int max, Operations operation) {
 	srand(time(0));
-	num_1 = rand() % (max - min+1);
-	num_2 = rand() % (max - min+1);
+	if (min > max) {std::swap(min,max);}
+	num_1 = rand() % (max - min+1)+min;
+	num_2 = rand() % (max - min+1)+min;
 	op = operation;
-	answer = get_answer(min, max, op);
+	answer = get_answer(num_1, num_2, op);
 }
 MathTest::MathTest(int count){
 	if (count <= 0) { throw std::invalid_argument("Tasks count can't be lower then zero."); }

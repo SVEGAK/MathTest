@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "main.cpp"
+#include "lib.h"
 #include <iostream>
 #include <sstream>
 TEST(StructTask, DefaultConstructor) {
