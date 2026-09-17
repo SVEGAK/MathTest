@@ -1,3 +1,2 @@
 #pragma once
-struct Task;
-class MathTest;
+#include "lib.h"
