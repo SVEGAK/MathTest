@@ -6,6 +6,7 @@ Task::Task() {
 	num_1 = rand();
 	num_2 = rand();
 	op = Operations(rand() % 4);
+	if ((op == op_divide) && (num_2 == 0)) { num_2 = 1;}
 	answer = get_answer(num_1, num_2, op);
 }
 Task::Task(int min, int max, Operations operation) {
@@ -14,6 +15,7 @@ Task::Task(int min, int max, Operations operation) {
 	num_1 = rand() % (max - min+1)+min;
 	num_2 = rand() % (max - min+1)+min;
 	op = operation;
+	if ((op == op_divide) && (num_2 == 0)) { throw std::invalid_argument("Division by zero."); }
 	answer = get_answer(num_1, num_2, op);
 }
 MathTest::MathTest(int count){
@@ -39,10 +41,12 @@ MathTest::MathTest(int count, int min, int max, Operations operation)
 	}
 }
  Task Task::exact(int n1, int n2, Operations operation) {
+	 if ((operation == op_divide) && (n2 == 0)) { throw std::invalid_argument("Division by zero."); }
 	 Task t; // Создаем объект (можно использовать любой существующий конструктор)
 	 t.num_1 = n1;
 	 t.num_2 = n2;
 	 t.op = operation;
+	 
 	 t.answer = get_answer(n1, n2, operation);
 	 return t;
  }

@@ -11,6 +11,10 @@ TEST(StructTask, InitConstructorDivide) {
     t = t.exact(1, 2, op_divide);
 	EXPECT_EQ(t.answer, 0);
 }
+TEST(StructTask, DivisionByZeroThrow) {
+    Task t;
+    EXPECT_ANY_THROW(t = t.exact(1, 0, op_divide));
+}
 TEST(StructTask, InitConstructorMultiple) {
 	Task t;
     t = t.exact(2, 5, op_multiplicate);
@@ -134,3 +138,4 @@ TEST(MathTest, ExactCaseVisualTest) {
     std::cin.rdbuf(old_cin);
     std::cout.rdbuf(old_cout);
 }
+
